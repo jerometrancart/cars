@@ -1,47 +1,46 @@
-import { Component } from 'react';
-import  Car  from './Car'
-import Wrapper from './Wrapper';
-import MyHeader from './MyHeader';
+import { Component } from 'react'
+import Car from './Car'
 
-class MyCars extends Component {
+class Mycars extends Component {
     state = {
-        cars: ["Ford", "Mercedes", "Peugeot"]
+        voitures: [
+            {name: "Ford", color: "red", year: 2000},
+            {name: "Mercedes", color: "black", year: 2010},
+            {name: "Peugeot", color: "green", year: 2018}
+        ],
+
+        titre: 'Mon Catalogue Voitures'
     }
 
-    noCopy = () => {
-        alert("Merci de ne pas copier le texte !")
+    addTenYears = () => {
+        const updatedState = this.state.voitures.map((param) => {
+            return param.year -= 10;
+        })
+        this.setState({
+            updatedState
+        })
     }
 
-    addStyle = (e) => {
-        
-        if(e.target.classList.contains('styled'))
-        {
-            e.target.style.color = "green";
-            e.target.classList.remove('styled');
-        } else {
-            e.target.style.color = null;
-            e.target.classList.add('styled');
-        }
-    }
+    render() {
+        const currentYear = new Date().getFullYear();
+        return (
+            <div>
+                <h1>{this.state.titre}</h1>
+                <button onClick={this.addTenYears}>+10ans</button>
 
-
-    render () {
-        const {title, titleColor} = this.props;
-        const {cars} = this.state;
-    return (
-        <div className="mycars">
-            <Wrapper>
-                <MyHeader addStyle={this.addStyle} titleColor={titleColor} >{title}</MyHeader>
-            </Wrapper>
-                <p onCopy={this.noCopy}>Essayez de me copier pour voir !</p>
-            <Car color="red">{cars[0]}</Car>
-            <Car>{cars[1]}</Car>
-            <Car color="green">{cars[2]}</Car>
-            
-        </div>
-      );
+                {
+                    this.state.voitures.map((voiture, index) => {
+                        return(
+                            <div key={index}>
+                             <Car color={voiture.color} year={currentYear - voiture.year} name={voiture.name}></Car>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+           
+        )
     }
-  }
-  
-  export default MyCars;
-  
+}
+
+export default Mycars

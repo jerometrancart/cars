@@ -1,23 +1,18 @@
-import Wrapper from "./Wrapper";
+const Car = ({color, name, year}) => {
 
-const Car = ({children, color}) => {
-    
+    const colorInfo = color ? <p>Couleur: {color}</p> : <p>Couleur: "Néant"</p>;
 
-    if(children) {
-        return  (
-            <Wrapper style={ {
-                            backgroundColor: 'pink',
-                            width: '40%',
-                            padding: '10px',
-                            margin: '5px auto'
-                        } }
-            className="car">
-                <p>Marque: {children}</p>
-                {/* { color ? (<p>Couleur: {color}</p>) : (<p>Couleur: Inconnue</p>) } */}
-                <p>Couleur: {color ? color : "Inconnue"}</p>  
-            </Wrapper>
-        ) 
-    } 
+    if (name) {
+        return (
+            <div style={ {backgroundColor: 'pink', width: '400px', padding: '10px', margin: '5px auto'} }>
+                <p>Marque: { name }</p>
+                <p>Age: { year }</p>
+                {colorInfo}
+            </div>
+        )
+    }
+
+    // return null // ce return est Facultatif
 }
-  
-  export default Car;
+
+export default Car
